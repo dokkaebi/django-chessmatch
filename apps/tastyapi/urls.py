@@ -1,32 +1,25 @@
+
 from django.conf.urls.defaults import patterns, include, url
 from django.conf import settings
 from django.contrib import admin
-from tastyapi.resources import UserResource
-user = UserResource()
+from tastyapi.resources import *
+from tastypie.api import Api
 
-admin.autodiscover()
 
 handler500 = 'mainsite.views.error500'
 handler404 = 'mainsite.views.error404'
 
-from mainsite.views import LoginView
-
+v1_api = Api(api_name='v1')
+v1_api.register(UserResource())
+v1_api.register(PlayerResource())
+v1_api.register(PieceColorResource())
+v1_api.register(BoardSetupResource())
+v1_api.register(BoardSetupColorResource())
+v1_api.register(GameResource())
 
 urlpatterns = patterns('',
 
-    url(r'^admin/', include(admin.site.urls)),
-
-    url(r'^logout/$', 'mainsite.views.logout', name='logout'),
-    url(r'^login/$', LoginView.as_view(), name='login'),
-
-    url(r'^login/twitter/$', 'mainsite.views.twitter_signin', name='login_twitter'),
-    url(r'^login/twitter/return/$', 'mainsite.views.twitter_return', name='login_twitter_return'),
-
-
-    url(r'', include('chessmatch.urls')),
-
-    url(r'^api/', include('restapi.urls')),
-    url(r'^tastyapi/', include('tastyapi.urls')),
+    url(r'', include(v1_api.urls)),
 
 )
 

@@ -22,6 +22,12 @@ INSTALLED_APPS = [
 
     'mainsite',
     'chessmatch',
+
+    'djangorestframework',
+    'restapi',
+
+    'tastypie',
+    'tastyapi',
 ]
 
 
@@ -51,7 +57,7 @@ TEMPLATE_LOADERS = [
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
 ]
-JINGO_EXCLUDE_APPS = ('admin','registration','debug_toolbar',)
+JINGO_EXCLUDE_APPS = ('admin','registration','debug_toolbar','renderer.html')
 
 
 STATICFILES_FINDERS = [
